@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bigdatahealth.findu.mapper.AnnouncementMapper">
+  <resultMap id="BaseResultMap" type="org.bigdatahealth.findu.pojo.Announcement">
+    <id column="pro_id" jdbcType="BIGINT" property="proId" />
+    <result column="pro_name" jdbcType="VARCHAR" property="proName" />
+    <result column="pro_profile" jdbcType="VARCHAR" property="proProfile" />
+    <result column="pro_start" jdbcType="TIMESTAMP" property="proStart" />
+    <result column="pro_duration" jdbcType="VARCHAR" property="proDuration" />
+    <result column="enroll_deadline" jdbcType="TIMESTAMP" property="enrollDeadline" />
+    <result column="enroll_requirements" jdbcType="VARCHAR" property="enrollRequirements" />
+    <result column="recruit_place" jdbcType="VARCHAR" property="recruitPlace" />
+    <result column="recruit_type" jdbcType="VARCHAR" property="recruitType" />
+    <result column="research_area" jdbcType="VARCHAR" property="researchArea" />
+    <result column="pro_reward" jdbcType="VARCHAR" property="proReward" />
+    <result column="eroll_way" jdbcType="VARCHAR" property="erollWay" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pro_id, pro_name, pro_profile, pro_start, pro_duration, enroll_deadline, enroll_requirements, 
+    recruit_place, recruit_type, research_area, pro_reward, eroll_way, user_id, state
+  </sql>
+  <select id="selectByExample" parameterType="org.bigdatahealth.findu.pojo.AnnouncementExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from announcement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from announcement
+    where pro_id = #{proId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from announcement
+    where pro_id = #{proId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.bigdatahealth.findu.pojo.AnnouncementExample">
+    delete from announcement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.bigdatahealth.findu.pojo.Announcement">
+    insert into announcement (pro_id, pro_name, pro_profile, 
+      pro_start, pro_duration, enroll_deadline, 
+      enroll_requirements, recruit_place, recruit_type, 
+      research_area, pro_reward, eroll_way, 
+      user_id, state)
+    values (#{proId,jdbcType=BIGINT}, #{proName,jdbcType=VARCHAR}, #{proProfile,jdbcType=VARCHAR}, 
+      #{proStart,jdbcType=TIMESTAMP}, #{proDuration,jdbcType=VARCHAR}, #{enrollDeadline,jdbcType=TIMESTAMP}, 
+      #{enrollRequirements,jdbcType=VARCHAR}, #{recruitPlace,jdbcType=VARCHAR}, #{recruitType,jdbcType=VARCHAR}, 
+      #{researchArea,jdbcType=VARCHAR}, #{proReward,jdbcType=VARCHAR}, #{erollWay,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.bigdatahealth.findu.pojo.Announcement">
+    insert into announcement
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="proId != null">
+        pro_id,
+      </if>
+      <if test="proName != null">
+        pro_name,
+      </if>
+      <if test="proProfile != null">
+        pro_profile,
+      </if>
+      <if test="proStart != null">
+        pro_start,
+      </if>
+      <if test="proDuration != null">
+        pro_duration,
+      </if>
+      <if test="enrollDeadline != null">
+        enroll_deadline,
+      </if>
+      <if test="enrollRequirements != null">
+        enroll_requirements,
+      </if>
+      <if test="recruitPlace != null">
+        recruit_place,
+      </if>
+      <if test="recruitType != null">
+        recruit_type,
+      </if>
+      <if test="researchArea != null">
+        research_area,
+      </if>
+      <if test="proReward != null">
+        pro_reward,
+      </if>
+      <if test="erollWay != null">
+        eroll_way,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="proId != null">
+        #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="proName != null">
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proProfile != null">
+        #{proProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="proStart != null">
+        #{proStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proDuration != null">
+        #{proDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="enrollDeadline != null">
+        #{enrollDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enrollRequirements != null">
+        #{enrollRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitPlace != null">
+        #{recruitPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitType != null">
+        #{recruitType,jdbcType=VARCHAR},
+      </if>
+      <if test="researchArea != null">
+        #{researchArea,jdbcType=VARCHAR},
+      </if>
+      <if test="proReward != null">
+        #{proReward,jdbcType=VARCHAR},
+      </if>
+      <if test="erollWay != null">
+        #{erollWay,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.bigdatahealth.findu.pojo.AnnouncementExample" resultType="java.lang.Long">
+    select count(*) from announcement
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update announcement
+    <set>
+      <if test="record.proId != null">
+        pro_id = #{record.proId,jdbcType=BIGINT},
+      </if>
+      <if test="record.proName != null">
+        pro_name = #{record.proName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proProfile != null">
+        pro_profile = #{record.proProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proStart != null">
+        pro_start = #{record.proStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.proDuration != null">
+        pro_duration = #{record.proDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enrollDeadline != null">
+        enroll_deadline = #{record.enrollDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enrollRequirements != null">
+        enroll_requirements = #{record.enrollRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recruitPlace != null">
+        recruit_place = #{record.recruitPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recruitType != null">
+        recruit_type = #{record.recruitType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.researchArea != null">
+        research_area = #{record.researchArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proReward != null">
+        pro_reward = #{record.proReward,jdbcType=VARCHAR},
+      </if>
+      <if test="record.erollWay != null">
+        eroll_way = #{record.erollWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update announcement
+    set pro_id = #{record.proId,jdbcType=BIGINT},
+      pro_name = #{record.proName,jdbcType=VARCHAR},
+      pro_profile = #{record.proProfile,jdbcType=VARCHAR},
+      pro_start = #{record.proStart,jdbcType=TIMESTAMP},
+      pro_duration = #{record.proDuration,jdbcType=VARCHAR},
+      enroll_deadline = #{record.enrollDeadline,jdbcType=TIMESTAMP},
+      enroll_requirements = #{record.enrollRequirements,jdbcType=VARCHAR},
+      recruit_place = #{record.recruitPlace,jdbcType=VARCHAR},
+      recruit_type = #{record.recruitType,jdbcType=VARCHAR},
+      research_area = #{record.researchArea,jdbcType=VARCHAR},
+      pro_reward = #{record.proReward,jdbcType=VARCHAR},
+      eroll_way = #{record.erollWay,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      state = #{record.state,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.bigdatahealth.findu.pojo.Announcement">
+    update announcement
+    <set>
+      <if test="proName != null">
+        pro_name = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proProfile != null">
+        pro_profile = #{proProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="proStart != null">
+        pro_start = #{proStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proDuration != null">
+        pro_duration = #{proDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="enrollDeadline != null">
+        enroll_deadline = #{enrollDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enrollRequirements != null">
+        enroll_requirements = #{enrollRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitPlace != null">
+        recruit_place = #{recruitPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitType != null">
+        recruit_type = #{recruitType,jdbcType=VARCHAR},
+      </if>
+      <if test="researchArea != null">
+        research_area = #{researchArea,jdbcType=VARCHAR},
+      </if>
+      <if test="proReward != null">
+        pro_reward = #{proReward,jdbcType=VARCHAR},
+      </if>
+      <if test="erollWay != null">
+        eroll_way = #{erollWay,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where pro_id = #{proId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.bigdatahealth.findu.pojo.Announcement">
+    update announcement
+    set pro_name = #{proName,jdbcType=VARCHAR},
+      pro_profile = #{proProfile,jdbcType=VARCHAR},
+      pro_start = #{proStart,jdbcType=TIMESTAMP},
+      pro_duration = #{proDuration,jdbcType=VARCHAR},
+      enroll_deadline = #{enrollDeadline,jdbcType=TIMESTAMP},
+      enroll_requirements = #{enrollRequirements,jdbcType=VARCHAR},
+      recruit_place = #{recruitPlace,jdbcType=VARCHAR},
+      recruit_type = #{recruitType,jdbcType=VARCHAR},
+      research_area = #{researchArea,jdbcType=VARCHAR},
+      pro_reward = #{proReward,jdbcType=VARCHAR},
+      eroll_way = #{erollWay,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER}
+    where pro_id = #{proId,jdbcType=BIGINT}
+  </update>
+</mapper>

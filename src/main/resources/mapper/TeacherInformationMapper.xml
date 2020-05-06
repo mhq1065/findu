@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.bigdatahealth.findu.mapper.TeacherInformationMapper" >
+  <resultMap id="BaseResultMap" type="org.bigdatahealth.findu.pojo.TeacherInformation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sci_information" property="sciInformation" jdbcType="VARCHAR" />
+    <result column="per_homepage" property="perHomepage" jdbcType="VARCHAR" />
+    <result column="college" property="college" jdbcType="VARCHAR" />
+    <result column="is_four_hundred" property="isFourHundred" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, username, profession, department, email, sci_information, per_homepage, college, 
+    is_four_hundred
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.bigdatahealth.findu.pojo.TeacherInformationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from teacher_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.bigdatahealth.findu.pojo.TeacherInformationExample" >
+    delete from teacher_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.bigdatahealth.findu.pojo.TeacherInformation" >
+    insert into teacher_info (id, username, profession, 
+      department, email, sci_information, 
+      per_homepage, college, is_four_hundred
+      )
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sciInformation,jdbcType=VARCHAR}, 
+      #{perHomepage,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, #{isFourHundred,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.bigdatahealth.findu.pojo.TeacherInformation" >
+    insert into teacher_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="sciInformation != null" >
+        sci_information,
+      </if>
+      <if test="perHomepage != null" >
+        per_homepage,
+      </if>
+      <if test="college != null" >
+        college,
+      </if>
+      <if test="isFourHundred != null" >
+        is_four_hundred,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sciInformation != null" >
+        #{sciInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="perHomepage != null" >
+        #{perHomepage,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null" >
+        #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="isFourHundred != null" >
+        #{isFourHundred,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.bigdatahealth.findu.pojo.TeacherInformationExample" resultType="java.lang.Integer" >
+    select count(*) from teacher_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update teacher_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profession != null" >
+        profession = #{record.profession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sciInformation != null" >
+        sci_information = #{record.sciInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.perHomepage != null" >
+        per_homepage = #{record.perHomepage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.college != null" >
+        college = #{record.college,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isFourHundred != null" >
+        is_four_hundred = #{record.isFourHundred,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update teacher_info
+    set id = #{record.id,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      profession = #{record.profession,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      sci_information = #{record.sciInformation,jdbcType=VARCHAR},
+      per_homepage = #{record.perHomepage,jdbcType=VARCHAR},
+      college = #{record.college,jdbcType=VARCHAR},
+      is_four_hundred = #{record.isFourHundred,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.bigdatahealth.findu.pojo.TeacherInformation" >
+    update teacher_info
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sciInformation != null" >
+        sci_information = #{sciInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="perHomepage != null" >
+        per_homepage = #{perHomepage,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null" >
+        college = #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="isFourHundred != null" >
+        is_four_hundred = #{isFourHundred,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.bigdatahealth.findu.pojo.TeacherInformation" >
+    update teacher_info
+    set username = #{username,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      sci_information = #{sciInformation,jdbcType=VARCHAR},
+      per_homepage = #{perHomepage,jdbcType=VARCHAR},
+      college = #{college,jdbcType=VARCHAR},
+      is_four_hundred = #{isFourHundred,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

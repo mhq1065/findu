@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.bigdatahealth.findu.mapper.HotWordMapper" >
+  <resultMap id="BaseResultMap" type="org.bigdatahealth.findu.pojo.HotWord" >
+    <id column="hotword_id" property="hotwordId" jdbcType="BIGINT" />
+    <result column="hotword_content" property="hotwordContent" jdbcType="VARCHAR" />
+    <result column="hotword_count" property="hotwordCount" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hotword_id, hotword_content, hotword_count
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.bigdatahealth.findu.pojo.HotWordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hot_word
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from hot_word
+    where hotword_id = #{hotwordId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from hot_word
+    where hotword_id = #{hotwordId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.bigdatahealth.findu.pojo.HotWordExample" >
+    delete from hot_word
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.bigdatahealth.findu.pojo.HotWord" >
+    insert into hot_word (hotword_id, hotword_content, hotword_count
+      )
+    values (#{hotwordId,jdbcType=BIGINT}, #{hotwordContent,jdbcType=VARCHAR}, #{hotwordCount,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.bigdatahealth.findu.pojo.HotWord" >
+    insert into hot_word
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotwordId != null" >
+        hotword_id,
+      </if>
+      <if test="hotwordContent != null" >
+        hotword_content,
+      </if>
+      <if test="hotwordCount != null" >
+        hotword_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotwordId != null" >
+        #{hotwordId,jdbcType=BIGINT},
+      </if>
+      <if test="hotwordContent != null" >
+        #{hotwordContent,jdbcType=VARCHAR},
+      </if>
+      <if test="hotwordCount != null" >
+        #{hotwordCount,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.bigdatahealth.findu.pojo.HotWordExample" resultType="java.lang.Integer" >
+    select count(*) from hot_word
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update hot_word
+    <set >
+      <if test="record.hotwordId != null" >
+        hotword_id = #{record.hotwordId,jdbcType=BIGINT},
+      </if>
+      <if test="record.hotwordContent != null" >
+        hotword_content = #{record.hotwordContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotwordCount != null" >
+        hotword_count = #{record.hotwordCount,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update hot_word
+    set hotword_id = #{record.hotwordId,jdbcType=BIGINT},
+      hotword_content = #{record.hotwordContent,jdbcType=VARCHAR},
+      hotword_count = #{record.hotwordCount,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.bigdatahealth.findu.pojo.HotWord" >
+    update hot_word
+    <set >
+      <if test="hotwordContent != null" >
+        hotword_content = #{hotwordContent,jdbcType=VARCHAR},
+      </if>
+      <if test="hotwordCount != null" >
+        hotword_count = #{hotwordCount,jdbcType=BIGINT},
+      </if>
+    </set>
+    where hotword_id = #{hotwordId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.bigdatahealth.findu.pojo.HotWord" >
+    update hot_word
+    set hotword_content = #{hotwordContent,jdbcType=VARCHAR},
+      hotword_count = #{hotwordCount,jdbcType=BIGINT}
+    where hotword_id = #{hotwordId,jdbcType=BIGINT}
+  </update>
+</mapper>
